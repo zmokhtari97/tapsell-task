@@ -1,1 +1,41 @@
-<p>task-card works!</p>
+<div class="flex flex-col gap-2 p-3 shadow-sm rounded-md bg-[#FBFAFD]">
+  <div class="flex justify-between">
+    <div class="flex text-lg bp-2 ms-2">title</div>
+    <mat-checkbox>Done</mat-checkbox>
+  </div>
+
+  <div class="flex flex-col justify-start gap-2 p-1.5">
+    <span class="text-gray-600"> date: </span>
+    <span class="text-gray-500">description:</span>
+  </div>
+
+  <div
+    class="h-[2px] mx-1 bg-purple-500"
+    role="separator"
+    aria-label="Divider"
+  ></div>
+
+  <div class="flex justify-end">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
+  <mat-menu #menu="matMenu">
+    @if (editable()) {
+    <button mat-menu-item>
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    }
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+    @if (ableToMoveDaily()) {
+    <button mat-menu-item>
+      <mat-icon>forward</mat-icon>
+      <span>Move Daily</span>
+    </button>
+    }
+  </mat-menu>
+</div>
