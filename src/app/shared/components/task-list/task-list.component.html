@@ -1,0 +1,27 @@
+<p>task-list works!</p>
+<div class="flex flex-col gap-2 p-1 max-w-96 shadow-sm">
+  <div class="flex justify-between items-center">
+    <div class="flex text-2xl font-semibold bp-2 ms-2">List Title</div>
+    <div class="flex justify-end">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </div>
+    <mat-menu #menu="matMenu">
+      @if (editable()) {
+      <button mat-menu-item (click)="editListDialog()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      } @if (deletable()) {
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span></button
+      >}
+    </mat-menu>
+  </div>
+  <button mat-fab extended>
+    <mat-icon>add</mat-icon>
+    Add New Task
+  </button>
+</div>
