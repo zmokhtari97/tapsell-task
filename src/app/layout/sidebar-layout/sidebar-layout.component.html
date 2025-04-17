@@ -1,5 +1,30 @@
 <div class="flex lg:flex-col w-full gap-3">
-  <div class="navigation-item" routerLinkActive="active">Introduction</div>
-  <div class="navigation-item" routerLinkActive="active">Main List</div>
-  <div class="navigation-item" routerLinkActive="active">Daily List</div>
+  <div
+    class="navigation-item"
+    [routerLink]="['/introduction']"
+    routerLinkActive="active"
+  >
+    Introduction
+  </div>
+  <div
+    class="navigation-item"
+    [routerLink]="['/main']"
+    routerLinkActive="active"
+  >
+    Main Task List
+  </div>
+  <div
+    class="navigation-item"
+    [routerLink]="['/list']"
+    routerLinkActive="active"
+  >
+    Daily Task List
+  </div>
+  <div
+    class="navigation-item"
+    [routerLink]="['/complete']"
+    routerLinkActive="active"
+  >
+    Complete Task List
+  </div>
 </div>
