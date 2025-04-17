@@ -59,7 +59,7 @@ export class TaskCardComponent {
         done: event,
       })
       .subscribe(() => {
-        this.notificationService.success('Card updated successfully!');
+        this.notificationService.success('Task updated successfully!');
       });
   }
 
@@ -70,7 +70,7 @@ export class TaskCardComponent {
       })
       .subscribe(() => {
         /* TODO: call getTasks from outside */
-        this.notificationService.success('Card moved successfully!');
+        this.notificationService.success('Task moved successfully!');
       });
   }
 
@@ -78,7 +78,7 @@ export class TaskCardComponent {
     if (confirm('Are you sure you want to delete ' + task.title + ' task?')) {
       this.taskService.deleteTaskById(task._id).subscribe((res) => {
         /* TODO: call getTasks from outside */
-        this.notificationService.success('Card deleted successfully!');
+        this.notificationService.success('Task deleted successfully!');
       });
     }
   }

@@ -84,7 +84,7 @@ export class TaskListComponent implements OnInit {
       confirm('Are you sure you want to delete ' + this.list?.title + ' list?')
     ) {
       this.listService.deleteListById(this.listId()).subscribe((res) => {
-        this.notificationService.success('Card deleted successfully!');
+        this.notificationService.success('Task deleted successfully!');
         this.router.navigate(['/main']);
       });
     }
