@@ -9,30 +9,33 @@
 
     <mat-menu #menu="matMenu">
       @if (editable()) {
-      <button mat-menu-item (click)="editListDialog()">
-        <mat-icon>edit</mat-icon>
-        <span>Edit</span>
-      </button>
-      } @if (deletable()) {
-      <button mat-menu-item>
-        <mat-icon>delete</mat-icon>
-        <span>Delete</span></button
-      >}
+        <button mat-menu-item (click)="editListDialog()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      }
+      @if (deletable()) {
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      }
     </mat-menu>
   </div>
-  @if(taskList.length >0){ @for(task of taskList; track $index ){
-  <app-task-card
-    [listId]="list()._id"
-    [ableToMoveDaily]="!list().isMain"
-    [task]="task"
-  ></app-task-card>
-  } } @else {
-  <span> There is no task assigned.</span>
-  <span>
-    to add new task press
-    <code class="bg-gray-200 rounded px-2">Add New Task</code> button</span
-  >
-
+  @if (taskList.length > 0) {
+    @for (task of taskList; track $index) {
+      <app-task-card
+        [listId]="list()._id"
+        [ableToMoveDaily]="!list().isMain"
+        [task]="task"
+      ></app-task-card>
+    }
+  } @else {
+    <span> There is no task assigned.</span>
+    <span>
+      to add new task press
+      <code class="bg-gray-200 rounded px-2">Add New Task</code> button</span
+    >
   }
 
   <button mat-fab extended (click)="openAddTaskDialog()">

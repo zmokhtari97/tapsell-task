@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-completed-task-list',
   imports: [],
   templateUrl: './completed-task-list.component.html',
-  styleUrl: './completed-task-list.component.css'
+  styleUrl: './completed-task-list.component.css',
 })
-export class CompletedTaskListComponent {
-
-}
+export class CompletedTaskListComponent {}
