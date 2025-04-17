@@ -26,7 +26,7 @@ import { Task } from '../../models';
     MatInputModule,
   ],
   templateUrl: './task-modal.component.html',
-  styleUrl: './task-modal.component.css',
+  styleUrl: './task-modal.component.scss',
 })
 export class TaskModalComponent implements OnInit {
   readonly dialog = inject(MatDialog);

@@ -19,6 +19,10 @@ export class TaskService {
     return this.http.post(baseUrl + 'tasks', task);
   }
 
+  getCompleteTasks(): Observable<any> {
+    return this.http.get(baseUrl + 'compeleted');
+  }
+
   getTaskByListId(id: string): Observable<any> {
     return this.http.get(baseUrl + 'tasks/query/' + id);
   }

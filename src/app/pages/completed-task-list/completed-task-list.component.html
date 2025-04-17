@@ -1,1 +1,7 @@
-<p>completed-task-list works!</p>
+@for (task of completeTasks; track $index) {
+  <app-task-card
+    [listId]="task.list"
+    [ableToMoveDaily]="false"
+    [task]="task"
+  ></app-task-card>
+}

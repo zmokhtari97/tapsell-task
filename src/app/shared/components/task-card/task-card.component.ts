@@ -18,7 +18,7 @@ import { Task } from '../../models';
     FormsModule,
   ],
   templateUrl: './task-card.component.html',
-  styleUrl: './task-card.component.css',
+  styleUrl: './task-card.component.scss',
 })
 export class TaskCardComponent {
   task = input.required<Task>();

@@ -26,7 +26,7 @@ import { List } from '../../models';
     MatInputModule,
   ],
   templateUrl: './list-modal.component.html',
-  styleUrl: './list-modal.component.css',
+  styleUrl: './list-modal.component.scss',
 })
 export class ListModalComponent {
   listId: string | null = null;

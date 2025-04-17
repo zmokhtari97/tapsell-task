@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-single-task-list',
   imports: [TaskListComponent],
   templateUrl: './single-task-list.component.html',
-  styleUrl: './single-task-list.component.css',
+  styleUrl: './single-task-list.component.scss',
 })
 export class SingleTaskListComponent {
   private readonly listService = inject(ListService);
