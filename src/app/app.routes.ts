@@ -30,11 +30,11 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'main',
+    redirectTo: 'daily',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'main',
+    redirectTo: 'daily',
   },
 ];
