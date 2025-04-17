@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import {
+  AllTaskListComponent,
   CompletedTaskListComponent,
   DailyTaskListComponent,
   IntroductionComponent,
-  MainTaskListComponent,
   SingleTaskListComponent,
 } from './pages';
 
@@ -14,7 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'main',
-    component: MainTaskListComponent,
+    component: AllTaskListComponent,
   },
   {
     path: 'complete',
