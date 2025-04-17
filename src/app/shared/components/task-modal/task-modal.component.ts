@@ -4,6 +4,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogModule,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import {
   FormGroup,
@@ -30,6 +31,7 @@ import { Task } from '../../models';
 })
 export class TaskModalComponent implements OnInit {
   readonly dialog = inject(MatDialog);
+  readonly dialogRef = inject(MatDialogRef);
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
   listId: string = '';
@@ -73,10 +75,14 @@ export class TaskModalComponent implements OnInit {
   }
 
   addTask(model: Partial<Task>) {
-    this.taskService.insertTask(model).subscribe(() => {});
+    this.taskService.insertTask(model).subscribe(() => {
+      this.dialogRef.close({ success: true });
+    });
   }
 
   updateTask(model: Partial<Task>) {
-    this.taskService.updateTaskById(this.taskId!, model).subscribe(() => {});
+    this.taskService.updateTaskById(this.taskId!, model).subscribe(() => {
+      this.dialogRef.close({ success: true });
+    });
   }
 }

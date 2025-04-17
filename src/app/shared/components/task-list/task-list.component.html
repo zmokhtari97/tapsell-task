@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-2 p-2.5 max-w-96 shadow-md">
   <div class="flex justify-between items-center">
-    <div class="flex text-2xl font-semibold bp-2 ms-2">{{ list().title }}</div>
+    <div class="flex text-2xl font-semibold bp-2 ms-2">{{ list?.title }}</div>
     <div class="flex justify-end">
       <button mat-icon-button [matMenuTriggerFor]="menu" class="">
         <mat-icon>more_horiz</mat-icon>
@@ -15,7 +15,7 @@
         </button>
       }
       @if (deletable()) {
-        <button mat-menu-item>
+        <button mat-menu-item (click)="deleteList()">
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>
@@ -25,8 +25,8 @@
   @if (taskList.length > 0) {
     @for (task of taskList; track $index) {
       <app-task-card
-        [listId]="list()._id"
-        [ableToMoveDaily]="!list().isMain"
+        [listId]="listId()"
+        [ableToMoveDaily]="!list?.isMain"
         [task]="task"
       ></app-task-card>
     }
@@ -38,7 +38,7 @@
     >
   }
 
-  <button mat-fab extended (click)="openAddTaskDialog()">
+  <button mat-fab extended (click)="openAddTaskDialog()" class="mt-3">
     <mat-icon>add</mat-icon>
     Add New Task
   </button>

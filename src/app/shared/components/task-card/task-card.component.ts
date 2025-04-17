@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 import { Task } from '../../models';
+import {
+  NotificationService,
+  SharedService,
+  TaskService,
+} from '../../services';
 
 @Component({
   selector: 'app-task-card',
@@ -27,9 +32,10 @@ export class TaskCardComponent {
   ableToCheck = input(true);
   ableToMoveDaily = input(true);
 
-  onMoveToDaily = output<boolean>();
-
   readonly dialog = inject(MatDialog);
+  readonly taskService = inject(TaskService);
+  readonly sharedService = inject(SharedService);
+  readonly notificationService = inject(NotificationService);
 
   editTaskDialog() {
     const dialogRef = this.dialog.open(TaskModalComponent, {
@@ -39,9 +45,41 @@ export class TaskCardComponent {
         task: this.task(),
       },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      if (result?.success) {
+        /* TODO: call getTasks from outside */
+        this.notificationService.success('Task updated successfully!');
+      }
     });
+  }
+
+  onCheckTask(event: boolean) {
+    this.taskService
+      .updateTaskById(this.task()._id, {
+        done: event,
+      })
+      .subscribe(() => {
+        this.notificationService.success('Card updated successfully!');
+      });
+  }
+
+  moveTaskToDaily(taskId: string) {
+    this.taskService
+      .updateTaskById(taskId, {
+        list: this.sharedService.mainListId!,
+      })
+      .subscribe(() => {
+        /* TODO: call getTasks from outside */
+        this.notificationService.success('Card moved successfully!');
+      });
+  }
+
+  deleteCard(task: Task) {
+    if (confirm('Are you sure you want to delete ' + task.title + ' task?')) {
+      this.taskService.deleteTaskById(task._id).subscribe((res) => {
+        /* TODO: call getTasks from outside */
+        this.notificationService.success('Card deleted successfully!');
+      });
+    }
   }
 }

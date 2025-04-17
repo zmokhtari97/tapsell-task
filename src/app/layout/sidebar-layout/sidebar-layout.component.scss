@@ -1,5 +1,5 @@
 .navigation-item {
-  @apply px-3 h-9 text-start text-[16px] bg-white rounded-md flex items-center cursor-pointer;
+  @apply px-3 h-9 text-start text-[16px] bg-white rounded-md flex items-center cursor-pointer whitespace-nowrap;
 
   &.active {
     @apply bg-purple-600 text-white;

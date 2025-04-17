@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +10,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogModule,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -28,14 +29,22 @@ import { List } from '../../models';
   templateUrl: './list-modal.component.html',
   styleUrl: './list-modal.component.scss',
 })
-export class ListModalComponent {
-  listId: string | null = null;
+export class ListModalComponent implements OnInit {
   readonly dialog = inject(MatDialog);
+  readonly dialogRef = inject(MatDialogRef);
   readonly data = inject<any>(MAT_DIALOG_DATA);
+
+  listId: string | null = null;
   listService = inject(ListService);
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
     this.listId = this.data?.listId;
+    if (this.listId) {
+      const list = this.data.list;
+      this.listForm.patchValue(list);
+    }
   }
 
   listForm = new FormGroup({
@@ -55,10 +64,14 @@ export class ListModalComponent {
   }
 
   addList(model: Partial<List>) {
-    this.listService.createList(model).subscribe(() => {});
+    this.listService.createList(model).subscribe(() => {
+      this.dialogRef.close({ success: true });
+    });
   }
 
   updateList(model: Partial<List>) {
-    this.listService.updateListById(this.listId!, model).subscribe(() => {});
+    this.listService.updateListById(this.listId!, model).subscribe(() => {
+      this.dialogRef.close({ success: true });
+    });
   }
 }

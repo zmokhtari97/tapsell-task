@@ -1,5 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { List, ListModalComponent, ListService } from '../../shared';
+import {
+  List,
+  ListModalComponent,
+  ListService,
+  NotificationService,
+} from '../../shared';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +22,7 @@ export class AllTaskListComponent {
   allList: List[] = [];
 
   readonly dialog = inject(MatDialog);
+  readonly notificationService = inject(NotificationService);
 
   ngOnInit(): void {
     this.getData();
@@ -25,34 +31,38 @@ export class AllTaskListComponent {
   getData() {
     this.listService.getAllLists().subscribe((data) => {
       this.allList = data;
-      console.log(this.allList);
     });
   }
 
   openAddDialog() {
     const dialogRef = this.dialog.open(ListModalComponent);
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      this.addList(result);
+      if (result.success) {
+        this.getData();
+      }
     });
   }
 
-  addList(title: string) {
-    let model = {
-      title: title,
-    };
-    this.listService.createList(model).subscribe(() => {
-      this.getData();
+  openEditDialog(list: List) {
+    const dialogRef = this.dialog.open(ListModalComponent, {
+      data: {
+        listId: list._id,
+        list: list,
+      },
     });
-  }
-
-  editListDialog() {
-    const dialogRef = this.dialog.open(ListModalComponent, {});
-
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      if (result.success) {
+        this.getData();
+      }
     });
   }
 
-  deleteList() {}
+  deleteList(title: string, listId: string) {
+    if (confirm('Are you sure you want to delete ' + title + ' list?')) {
+      this.listService.deleteListById(listId).subscribe((res) => {
+        this.getData();
+        this.notificationService.success('List deleted successfully!');
+      });
+    }
+  }
 }
