@@ -47,8 +47,8 @@ export class TaskCardComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.success) {
-        /* TODO: call getTasks from outside */
         this.notificationService.success('Task updated successfully!');
+        this.sharedService.reloadListObs.next(this.task().list);
       }
     });
   }
@@ -63,22 +63,24 @@ export class TaskCardComponent {
       });
   }
 
-  moveTaskToDaily(taskId: string) {
+  moveTaskToDaily() {
     this.taskService
-      .updateTaskById(taskId, {
+      .updateTaskById(this.task()._id, {
         list: this.sharedService.mainListId!,
       })
       .subscribe(() => {
-        /* TODO: call getTasks from outside */
-        this.notificationService.success('Task moved successfully!');
+        this.notificationService.success('Task moved to daily successfully!');
+        this.sharedService.reloadListObs.next(this.task().list);
       });
   }
 
-  deleteCard(task: Task) {
-    if (confirm('Are you sure you want to delete ' + task.title + ' task?')) {
-      this.taskService.deleteTaskById(task._id).subscribe((res) => {
-        /* TODO: call getTasks from outside */
+  deleteCard() {
+    if (
+      confirm('Are you sure you want to delete ' + this.task().title + ' task?')
+    ) {
+      this.taskService.deleteTaskById(this.task()._id).subscribe((res) => {
         this.notificationService.success('Task deleted successfully!');
+        this.sharedService.reloadListObs.next(this.task().list);
       });
     }
   }

@@ -29,12 +29,12 @@
         <span>Edit</span>
       </button>
     }
-    <button mat-menu-item (click)="deleteCard(task())">
+    <button mat-menu-item (click)="deleteCard()">
       <mat-icon>delete</mat-icon>
       <span>Delete</span>
     </button>
     @if (ableToMoveDaily()) {
-      <button mat-menu-item (click)="moveTaskToDaily(task()._id)">
+      <button mat-menu-item (click)="moveTaskToDaily()">
         <mat-icon>forward</mat-icon>
         <span>Move Daily</span>
       </button>

@@ -39,6 +39,7 @@ export class AllTaskListComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result.success) {
         this.getData();
+        this.notificationService.success('List added successfully!');
       }
     });
   }
@@ -53,6 +54,7 @@ export class AllTaskListComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result.success) {
         this.getData();
+        this.notificationService.success('List edited successfully!');
       }
     });
   }

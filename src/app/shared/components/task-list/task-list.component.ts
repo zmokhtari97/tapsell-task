@@ -8,12 +8,14 @@ import {
   List,
   ListService,
   NotificationService,
+  SharedService,
   Task,
   TaskModalComponent,
   TaskService,
 } from '../..';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -28,22 +30,36 @@ export class TaskListComponent implements OnInit {
   list: List | null = null;
   taskList: Task[] = [];
 
+  private subscription$ = new Subject<void>();
+
   readonly listDialog = inject(MatDialog);
   readonly taskDialog = inject(MatDialog);
   readonly router = inject(Router);
   readonly taskService = inject(TaskService);
   readonly listService = inject(ListService);
   readonly notificationService = inject(NotificationService);
+  readonly sharedService = inject(SharedService);
 
   ngOnInit(): void {
     this.getList();
     this.getTaskList();
+    this.updateListChanges();
   }
 
   getList() {
     this.listService.getListById(this.listId()).subscribe((data) => {
       this.list = data;
     });
+  }
+
+  updateListChanges() {
+    this.sharedService.reloadListObs
+      .pipe(takeUntil(this.subscription$))
+      .subscribe((resp) => {
+        if (resp == this.listId()) {
+          this.getTaskList();
+        }
+      });
   }
 
   getTaskList() {
@@ -61,6 +77,7 @@ export class TaskListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result.success) {
+        this.notificationService.success('List edited successfully!');
         this.getList();
       }
     });
@@ -74,6 +91,7 @@ export class TaskListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result.success) {
+        this.notificationService.success('Task added successfully!');
         this.getTaskList();
       }
     });
@@ -84,9 +102,14 @@ export class TaskListComponent implements OnInit {
       confirm('Are you sure you want to delete ' + this.list?.title + ' list?')
     ) {
       this.listService.deleteListById(this.listId()).subscribe((res) => {
-        this.notificationService.success('Task deleted successfully!');
+        this.notificationService.success('List deleted successfully!');
         this.router.navigate(['/main']);
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.next();
+    this.subscription$.complete();
   }
 }
