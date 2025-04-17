@@ -1,1 +1,13 @@
-<p>main-task-list works!</p>
+<div class="grid grid-cols-4 gap-4">
+  @for (item of allList; track $index) {
+  <div
+    class="border cursor-pointer"
+    [routerLink]="item.isMain ? '/daily' : `/${item._id}`"
+  >
+    {{ item.title }}
+    @if (item.isMain) { (main) }
+  </div>
+  }
+</div>
+
+<button (click)="openAddDialog()">Add List</button>
