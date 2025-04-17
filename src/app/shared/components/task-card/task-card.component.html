@@ -1,8 +1,7 @@
 <div class="flex flex-col gap-2 py-3 px-4 shadow-sm rounded-md bg-[#FBFAFD]">
   <div class="flex justify-between items-center">
-    <div class="flex text-lg">{{ task().title }}</div>
+    <div class="flex">{{ task().title }}</div>
     <mat-checkbox [ngModel]="task().done" (ngModelChange)="onCheckTask($event)">
-      Done
     </mat-checkbox>
   </div>
 
