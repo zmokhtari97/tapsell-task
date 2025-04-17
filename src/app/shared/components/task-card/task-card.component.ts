@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 import { Task } from '../../models';
+import { DatePipe } from '@angular/common';
 import {
   NotificationService,
   SharedService,
@@ -21,6 +22,7 @@ import {
     MatMenuModule,
     MatCheckboxModule,
     FormsModule,
+    DatePipe,
   ],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',

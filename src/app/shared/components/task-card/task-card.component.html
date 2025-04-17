@@ -1,23 +1,19 @@
-<div class="flex flex-col gap-2 p-3 shadow-sm rounded-md bg-[#FBFAFD]">
-  <div class="flex justify-between">
-    <div class="flex text-lg bp-2 ms-2">{{ task().title }}</div>
+<div class="flex flex-col gap-2 py-3 px-4 shadow-sm rounded-md bg-[#FBFAFD]">
+  <div class="flex justify-between items-center">
+    <div class="flex text-lg">{{ task().title }}</div>
     <mat-checkbox [ngModel]="task().done" (ngModelChange)="onCheckTask($event)">
       Done
     </mat-checkbox>
   </div>
 
-  <div class="flex flex-col justify-start gap-2 p-1.5">
-    <span class="text-gray-600"> date: {{ task().date }}</span>
-    <span class="text-gray-500">description: {{ task().description }}</span>
+  <div class="py-1.5">
+    <p class="text-gray-500">{{ task().description }}</p>
   </div>
 
-  <div
-    class="h-[2px] mx-1 bg-purple-500"
-    role="separator"
-    aria-label="Divider"
-  ></div>
+  <div class="h-[2px] bg-purple-500"></div>
 
-  <div class="flex justify-end">
+  <div class="flex justify-between items-center">
+    <small class="text-gray-600">{{ task().date | date }}</small>
     <button mat-icon-button [matMenuTriggerFor]="menu" class="">
       <mat-icon>more_horiz</mat-icon>
     </button>
