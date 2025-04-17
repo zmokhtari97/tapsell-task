@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ isEditMode ? "Edit" : "Add New" }} List</h2>
+<h2 mat-dialog-title>{{ listId ? "Edit" : "Add New" }} List</h2>
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="listForm">
     <mat-form-field class="w-full">
@@ -11,11 +11,10 @@
   <button mat-button mat-dialog-close>Cancel</button>
   <button
     mat-button
-    [mat-dialog-close]="true"
     cdkFocusInitial
     (click)="onSubmit()"
     [disabled]="!listForm.valid"
   >
-    {{ isEditMode ? "Update" : "Add" }} List
+    {{ listId ? "Update" : "Add" }} List
   </button>
 </mat-dialog-actions>

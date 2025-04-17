@@ -13,6 +13,8 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ListService } from '../../services';
+import { List } from '../../models';
 
 @Component({
   selector: 'app-list-modal',
@@ -27,19 +29,36 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './list-modal.component.css',
 })
 export class ListModalComponent {
-  isEditMode = false;
+  listId: string | null = null;
   readonly dialog = inject(MatDialog);
   readonly data = inject<any>(MAT_DIALOG_DATA);
+  listService = inject(ListService);
 
   constructor() {
-    this.isEditMode = this.data?.isEditMode ?? false;
+    this.listId = this.data?.listId;
   }
 
   listForm = new FormGroup({
-    title: new FormControl('', [Validators.required]),
+    title: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
   });
 
   onSubmit() {
-    console.log(this.listForm.value);
+    let model = { ...this.listForm.value };
+    if (this.listId) {
+      this.updateList(model);
+    } else {
+      this.addList(model);
+    }
+  }
+
+  addList(model: Partial<List>) {
+    this.listService.createList(model).subscribe(() => {});
+  }
+
+  updateList(model: Partial<List>) {
+    this.listService.updateListById(this.listId!, model).subscribe(() => {});
   }
 }
