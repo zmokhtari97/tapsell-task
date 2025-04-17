@@ -17,15 +17,15 @@ export const routes: Routes = [
     component: AllTaskListComponent,
   },
   {
-    path: 'complete',
+    path: 'completed',
     component: CompletedTaskListComponent,
   },
   {
-    path: 'list',
+    path: 'daily',
     component: DailyTaskListComponent,
   },
   {
-    path: 'list/:id',
+    path: ':id',
     component: SingleTaskListComponent,
   },
   {

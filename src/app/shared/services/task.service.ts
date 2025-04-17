@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Task } from '../models';
 
 const baseUrl = 'http://192.168.1.100:3000/api/';
 
@@ -14,7 +15,7 @@ export class TaskService {
     return this.http.get(baseUrl + 'tasks');
   }
 
-  insertTask(task: any): Observable<any> {
+  insertTask(task: Partial<Task>): Observable<any> {
     return this.http.post(baseUrl + 'tasks', task);
   }
 
@@ -26,7 +27,7 @@ export class TaskService {
     return this.http.get(baseUrl + 'tasks/' + id);
   }
 
-  updateTaskById(id: string, model: any): Observable<any> {
+  updateTaskById(id: string, model: Partial<Task>): Observable<any> {
     return this.http.put(baseUrl + 'tasks/' + id, model);
   }
 
