@@ -1,7 +1,6 @@
 @if (dailyList) {
 <app-task-list
-  [title]="dailyList.title"
-  [listId]="dailyList._id"
+  [list]="dailyList"
   [editable]="false"
   [deletable]="false"
 ></app-task-list>

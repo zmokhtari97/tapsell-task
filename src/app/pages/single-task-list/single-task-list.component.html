@@ -1,1 +1,7 @@
-<p>single-task-list works!</p>
+@if (list) {
+<app-task-list
+  [list]="list"
+  [editable]="true"
+  [deletable]="true"
+></app-task-list>
+}
