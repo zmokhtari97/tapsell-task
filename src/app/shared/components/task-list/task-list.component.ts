@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ListModalComponent } from '../list-modal/list-modal.component';
-import { Task, TaskService } from '../..';
+import { List, Task, TaskModalComponent, TaskService } from '../..';
 import { TaskCardComponent } from '../task-card/task-card.component';
 
 @Component({
@@ -20,13 +20,13 @@ import { TaskCardComponent } from '../task-card/task-card.component';
   styleUrl: './task-list.component.css',
 })
 export class TaskListComponent implements OnInit {
-  title = input('');
-  listId = input('');
+  list = input.required<List>();
   editable = input(true);
   deletable = input(true);
   taskList: Task[] = [];
 
-  readonly dialog = inject(MatDialog);
+  readonly listDialog = inject(MatDialog);
+  readonly taskDialog = inject(MatDialog);
   readonly taskService = inject(TaskService);
 
   ngOnInit(): void {
@@ -34,15 +34,28 @@ export class TaskListComponent implements OnInit {
   }
 
   getTaskList() {
-    this.taskService.getTaskByListId(this.listId()).subscribe((data) => {
+    this.taskService.getTaskByListId(this.list()._id).subscribe((data) => {
       this.taskList = data;
     });
   }
 
   editListDialog() {
-    const dialogRef = this.dialog.open(ListModalComponent, {
+    const dialogRef = this.listDialog.open(ListModalComponent, {
       data: {
-        isEditMode: true,
+        listId: this.list()._id,
+        list: this.list(),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openAddTaskDialog() {
+    const dialogRef = this.taskDialog.open(TaskModalComponent, {
+      data: {
+        listId: this.list()._id,
       },
     });
 

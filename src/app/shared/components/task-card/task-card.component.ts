@@ -6,6 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
+import { Task } from '../../models';
 
 @Component({
   selector: 'app-task-card',
@@ -20,20 +21,22 @@ import { TaskModalComponent } from '../task-modal/task-modal.component';
   styleUrl: './task-card.component.css',
 })
 export class TaskCardComponent {
+  task = input.required<Task>();
+  listId = input.required();
   editable = input(true);
   ableToCheck = input(true);
   ableToMoveDaily = input(true);
 
   onMoveToDaily = output<boolean>();
 
-  task = input({});
-
   readonly dialog = inject(MatDialog);
 
   editTaskDialog() {
     const dialogRef = this.dialog.open(TaskModalComponent, {
       data: {
-        isEditMode: true,
+        listId: this.listId(),
+        taskId: this.task()._id,
+        task: this.task(),
       },
     });
 

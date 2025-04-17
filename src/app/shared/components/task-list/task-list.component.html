@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-2 p-2.5 max-w-96 shadow-md">
   <div class="flex justify-between items-center">
-    <div class="flex text-2xl font-semibold bp-2 ms-2">{{ title() }}</div>
+    <div class="flex text-2xl font-semibold bp-2 ms-2">{{ list().title }}</div>
     <div class="flex justify-end">
       <button mat-icon-button [matMenuTriggerFor]="menu" class="">
         <mat-icon>more_horiz</mat-icon>
@@ -21,7 +21,11 @@
     </mat-menu>
   </div>
   @if(taskList.length >0){ @for(task of taskList; track $index ){
-  <app-task-card></app-task-card>
+  <app-task-card
+    [listId]="list()._id"
+    [ableToMoveDaily]="!list().isMain"
+    [task]="task"
+  ></app-task-card>
   } } @else {
   <span> There is no task assigned.</span>
   <span>
@@ -31,7 +35,7 @@
 
   }
 
-  <button mat-fab extended>
+  <button mat-fab extended (click)="openAddTaskDialog()">
     <mat-icon>add</mat-icon>
     Add New Task
   </button>

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -13,6 +13,9 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ActivatedRoute } from '@angular/router';
+import { TaskService } from '../../services';
+import { Task } from '../../models';
 @Component({
   selector: 'app-task-modal',
   imports: [
@@ -25,21 +28,55 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './task-modal.component.html',
   styleUrl: './task-modal.component.css',
 })
-export class TaskModalComponent {
-  isEditMode = false;
+export class TaskModalComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
-  constructor() {
-    this.isEditMode = this.data?.isEditMode ?? false;
-  }
+  listId: string = '';
+  taskId: string | null = null;
+  activatedRoute = inject(ActivatedRoute);
+  taskService = inject(TaskService);
 
   taskForm = new FormGroup({
-    title: new FormControl('', [Validators.required]),
+    title: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     description: new FormControl(''),
   });
 
+  constructor() {}
+
+  ngOnInit(): void {
+    this.listId = this.data?.listId;
+    this.taskId = this.data?.taskId ?? null;
+    if (this.taskId) {
+      const task = this.data?.task ?? {};
+      this.fillForm(task);
+    }
+  }
+
+  fillForm(task: object) {
+    this.taskForm.patchValue({ ...task });
+  }
+
   onSubmit() {
-    console.log(this.taskForm.value);
+    let model = {
+      ...this.taskForm.value,
+      list: this.listId,
+    };
+    if (this.taskId) {
+      this.updateTask(model);
+    } else {
+      this.addTask(model);
+    }
+  }
+
+  addTask(model: Partial<Task>) {
+    this.taskService.insertTask(model).subscribe(() => {});
+  }
+
+  updateTask(model: Partial<Task>) {
+    this.taskService.updateTaskById(this.taskId!, model).subscribe(() => {});
   }
 }
