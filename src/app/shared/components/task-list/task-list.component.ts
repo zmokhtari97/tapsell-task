@@ -9,13 +9,7 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 
 @Component({
   selector: 'app-task-list',
-  imports: [
-    MatIconModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    TaskCardComponent,
-  ],
+  imports: [MatIconModule, MatButtonModule, MatMenuModule, TaskCardComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css',
 })
