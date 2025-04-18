@@ -37,6 +37,7 @@
           mat-menu-item
           [disabled]="item.isMain"
           (click)="deleteList(item.title, item._id)"
+          data-cy="delete-list"
         >
           <mat-icon>delete</mat-icon>
           <span>Delete</span>

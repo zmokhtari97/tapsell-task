@@ -15,9 +15,9 @@ describe('Task List Page', () => {
     assert.isTrue(true, 'list added successfully');
   });
 
-  it.only('should edit an existing list and verify update', () => {
+  it('should edit an existing list and verify update', () => {
     cy.get('[data-cy="list-card"]')
-      .filter(':has([data-cy="list-title"]:contains("Test List"))') // find the right card
+      .filter(':has([data-cy="list-title"]:contains("Test List"))')
       .within(() => {
         cy.get('[data-cy="list-menu-button"]')
           .should('exist')
@@ -38,5 +38,22 @@ describe('Task List Page', () => {
     );
 
     assert.isTrue(true, 'list update successfully');
+  });
+
+  it('should delete an existing list and verify it is removed', () => {
+    cy.get('[data-cy="list-card"]')
+      .filter(':has([data-cy="list-title"]:contains("Test List"))')
+      .within(() => {
+        cy.get('[data-cy="list-menu-button"]')
+          .should('exist')
+          .click({ force: true });
+      });
+
+    cy.wait(1000);
+    cy.get('[data-cy="delete-list"]').click();
+
+    cy.wait(1000);
+    cy.get('[data-cy="list-card"]').contains('Test List').should('not.exist');
+    assert.isTrue(true, 'list deleted successfully');
   });
 });
