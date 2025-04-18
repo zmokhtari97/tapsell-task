@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ listId ? "Edit" : "Add New" }} List</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="listForm">
+    <mat-form-field class="w-full">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    cdkFocusInitial
+    (click)="onSubmit()"
+    [disabled]="!listForm.valid"
+    data-cy="add-edit-button"
+  >
+    {{ listId ? "Update" : "Add" }} List
+  </button>
+</mat-dialog-actions>

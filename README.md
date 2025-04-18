@@ -1,6 +1,7 @@
 # TapsellTask
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+This is a modern, responsive To-Do List web application built with Angular and Material UI, designed to help users organize and manage their daily tasks efficiently.
 
 ## Development server
 
@@ -21,6 +22,13 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+End-to-End Testing:
+Implemented using Cypress
+Tests include:
+Adding/editing/deleting lists
+Adding/editing/deleting tasks
+Moving tasks to daily
+Verifying task completion behavior
 
 ## Further help
 

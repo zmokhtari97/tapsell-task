@@ -1,0 +1,51 @@
+<div class="flex flex-col gap-2 p-2.5 max-w-80 shadow-md rounded-lg border">
+  <div class="flex justify-between items-center">
+    <div class="flex text-xl font-semibold bp-2 ms-2">{{ list?.title }}</div>
+    <div class="flex justify-end">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </div>
+
+    <mat-menu #menu="matMenu">
+      @if (editable()) {
+        <button mat-menu-item (click)="editListDialog()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      }
+      @if (deletable()) {
+        <button mat-menu-item (click)="deleteList()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      }
+    </mat-menu>
+  </div>
+  @if (taskList.length > 0) {
+    @for (task of taskList; track $index) {
+      <app-task-card
+        [listId]="listId()"
+        [ableToMoveDaily]="!list?.isMain"
+        [task]="task"
+      ></app-task-card>
+    }
+  } @else {
+    <span class="px-1"> There is no task assigned.</span>
+    <span class="px-1">
+      to add new task press
+      <code class="bg-gray-200 rounded px-2">Add New Task</code> button</span
+    >
+  }
+
+  <button
+    mat-fab
+    extended
+    (click)="openAddTaskDialog()"
+    class="mt-3"
+    data-cy="add-new-task-button"
+  >
+    <mat-icon>add</mat-icon>
+    Add New Task
+  </button>
+</div>

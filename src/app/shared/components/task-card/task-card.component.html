@@ -1,0 +1,47 @@
+<div
+  class="flex flex-col gap-2 py-3 px-4 shadow-sm rounded-md bg-[#FBFAFD]"
+  data-cy="task-card"
+>
+  <div class="flex justify-between items-center">
+    <div class="flex" data-cy="task-title">{{ task().title }}</div>
+    <mat-checkbox [ngModel]="task().done" (ngModelChange)="onCheckTask($event)">
+    </mat-checkbox>
+  </div>
+
+  <div class="py-1.5">
+    <p class="text-gray-500" data-cy="task-description">
+      {{ task().description }}
+    </p>
+  </div>
+
+  <div class="h-[2px] bg-purple-500"></div>
+
+  <div class="flex justify-between items-center">
+    <small class="text-gray-600">{{ task().date | date }}</small>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      data-cy="task-menu-button"
+    >
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
+  <mat-menu #menu="matMenu">
+    @if (editable()) {
+      <button mat-menu-item (click)="editTaskDialog()" data-cy="edit-task">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+    }
+    <button mat-menu-item (click)="deleteCard()" data-cy="delete-task">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+    @if (ableToMoveDaily()) {
+      <button mat-menu-item (click)="moveTaskToDaily()">
+        <mat-icon>forward</mat-icon>
+        <span>Move Daily</span>
+      </button>
+    }
+  </mat-menu>
+</div>

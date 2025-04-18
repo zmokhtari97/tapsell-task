@@ -1,0 +1,15 @@
+<div class="flex flex-col gap-3 max-w-80 p-2.5 shadow-md rounded-lg border">
+  <div class="flex text-xl font-semibold bp-2 ms-2">Complete Tasks</div>
+  @if (completeTasks.length > 0) {
+    @for (task of completeTasks; track $index) {
+      <app-task-card
+        data-cy="complete-task-card"
+        [listId]="task.list"
+        [ableToMoveDaily]="false"
+        [task]="task"
+      ></app-task-card>
+    }
+  } @else {
+    <span class="px-2"> There is no complete task </span>
+  }
+</div>
