@@ -21,8 +21,8 @@ export class AllTaskListComponent {
   listService = inject(ListService);
   allList: List[] = [];
 
-  readonly dialog = inject(MatDialog);
-  readonly notificationService = inject(NotificationService);
+  private dialog = inject(MatDialog);
+  private notificationService = inject(NotificationService);
 
   ngOnInit(): void {
     this.getData();

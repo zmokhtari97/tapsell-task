@@ -8,8 +8,8 @@ import { List, ListService, TaskListComponent } from '../../shared';
   styleUrl: './daily-task-list.component.scss',
 })
 export class DailyTaskListComponent implements OnInit {
-  private readonly listService = inject(ListService);
   dailyList: List | undefined;
+  private listService = inject(ListService);
 
   ngOnInit(): void {
     this.listService.getMainList().subscribe((data) => {

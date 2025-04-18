@@ -9,10 +9,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './single-task-list.component.scss',
 })
 export class SingleTaskListComponent {
-  private readonly listService = inject(ListService);
   list: List | undefined;
   listId: string | null = null;
-  activatedRoute = inject(ActivatedRoute);
+
+  private listService = inject(ListService);
+  private activatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.listId = this.activatedRoute.snapshot.paramMap.get('id');

@@ -8,7 +8,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -30,9 +29,8 @@ import { List } from '../../models';
   styleUrl: './list-modal.component.scss',
 })
 export class ListModalComponent implements OnInit {
-  readonly dialog = inject(MatDialog);
-  readonly dialogRef = inject(MatDialogRef);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
+  private dialogRef = inject(MatDialogRef);
+  private data = inject<any>(MAT_DIALOG_DATA);
 
   listId: string | null = null;
   listService = inject(ListService);

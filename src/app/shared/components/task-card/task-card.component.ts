@@ -34,10 +34,10 @@ export class TaskCardComponent {
   ableToCheck = input(true);
   ableToMoveDaily = input(true);
 
-  readonly dialog = inject(MatDialog);
-  readonly taskService = inject(TaskService);
-  readonly sharedService = inject(SharedService);
-  readonly notificationService = inject(NotificationService);
+  private dialog = inject(MatDialog);
+  private taskService = inject(TaskService);
+  private sharedService = inject(SharedService);
+  private notificationService = inject(NotificationService);
 
   editTaskDialog() {
     const dialogRef = this.dialog.open(TaskModalComponent, {

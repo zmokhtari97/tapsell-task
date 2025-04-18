@@ -29,16 +29,15 @@ export class TaskListComponent implements OnInit {
   deletable = input(true);
   list: List | null = null;
   taskList: Task[] = [];
+  subscription$ = new Subject<void>();
 
-  private subscription$ = new Subject<void>();
-
-  readonly listDialog = inject(MatDialog);
-  readonly taskDialog = inject(MatDialog);
-  readonly router = inject(Router);
-  readonly taskService = inject(TaskService);
-  readonly listService = inject(ListService);
-  readonly notificationService = inject(NotificationService);
-  readonly sharedService = inject(SharedService);
+  private listDialog = inject(MatDialog);
+  private taskDialog = inject(MatDialog);
+  private router = inject(Router);
+  private taskService = inject(TaskService);
+  private listService = inject(ListService);
+  private notificationService = inject(NotificationService);
+  private sharedService = inject(SharedService);
 
   ngOnInit(): void {
     this.getList();

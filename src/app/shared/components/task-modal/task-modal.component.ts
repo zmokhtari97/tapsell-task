@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -30,9 +29,8 @@ import { Task } from '../../models';
   styleUrl: './task-modal.component.scss',
 })
 export class TaskModalComponent implements OnInit {
-  readonly dialog = inject(MatDialog);
-  readonly dialogRef = inject(MatDialogRef);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
+  private dialogRef = inject(MatDialogRef);
+  private data = inject<any>(MAT_DIALOG_DATA);
 
   listId: string = '';
   taskId: string | null = null;
