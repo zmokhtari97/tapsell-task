@@ -18,6 +18,7 @@
     cdkFocusInitial
     (click)="onSubmit()"
     [disabled]="!taskForm.valid"
+    data-cy="task-submit-button"
   >
     {{ taskId ? "Update" : "Add" }} Task
   </button>
