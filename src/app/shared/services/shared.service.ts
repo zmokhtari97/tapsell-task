@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedService {
   private mainListId$: string | null = null;
-  reloadListObs = new BehaviorSubject<string | null>(null);
+  reloadListObs = new BehaviorSubject<boolean>(false);
 
   set mainListId(id: string) {
     this.mainListId$ = id;

@@ -50,7 +50,7 @@ export class TaskCardComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.success) {
         this.notificationService.success('Task updated successfully!');
-        this.sharedService.reloadListObs.next(this.task().list);
+        this.sharedService.reloadListObs.next(true);
       }
     });
   }
@@ -61,6 +61,7 @@ export class TaskCardComponent {
         done: event,
       })
       .subscribe(() => {
+        this.sharedService.reloadListObs.next(true);
         this.notificationService.success('Task updated successfully!');
       });
   }
@@ -72,7 +73,7 @@ export class TaskCardComponent {
       })
       .subscribe(() => {
         this.notificationService.success('Task moved to daily successfully!');
-        this.sharedService.reloadListObs.next(this.task().list);
+        this.sharedService.reloadListObs.next(true);
       });
   }
 
@@ -82,7 +83,7 @@ export class TaskCardComponent {
     ) {
       this.taskService.deleteTaskById(this.task()._id).subscribe((res) => {
         this.notificationService.success('Task deleted successfully!');
-        this.sharedService.reloadListObs.next(this.task().list);
+        this.sharedService.reloadListObs.next(true);
       });
     }
   }

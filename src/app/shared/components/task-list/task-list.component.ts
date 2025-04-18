@@ -55,10 +55,8 @@ export class TaskListComponent implements OnInit {
   updateListChanges() {
     this.sharedService.reloadListObs
       .pipe(takeUntil(this.subscription$))
-      .subscribe((resp) => {
-        if (resp == this.listId()) {
-          this.getTaskList();
-        }
+      .subscribe(() => {
+        this.getTaskList();
       });
   }
 
