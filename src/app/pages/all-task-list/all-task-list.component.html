@@ -2,17 +2,22 @@
   @for (item of allList; track $index) {
     <div
       class="border relative rounded-lg shadow hover:shadow-md focus:shadow-md transition-shadow duration-200 ease-in-out"
+      data-cy="list-card"
     >
       <div
         class="cursor-pointer p-4 h-32"
         [routerLink]="item.isMain ? '/daily' : `/${item._id}`"
       >
-        <div class="body-lg text-gray-800 font-semibold">
+        <div class="body-lg text-gray-800 font-semibold" data-cy="list-title">
           {{ item.title }}
         </div>
       </div>
       <div class="absolute top-2 end-2">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          data-cy="list-menu-button"
+        >
           <mat-icon>more_horiz</mat-icon>
         </button>
       </div>
@@ -22,6 +27,7 @@
           mat-menu-item
           (click)="openEditDialog(item)"
           [disabled]="item.isMain"
+          data-cy="edit-list"
         >
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
@@ -41,7 +47,7 @@
 </div>
 
 <div class="items-center justify-center flex mt-4">
-  <button mat-fab extended (click)="openAddDialog()">
+  <button mat-fab extended (click)="openAddDialog()" data-cy="add-list-button">
     <mat-icon>add</mat-icon>
     Add List
   </button>
