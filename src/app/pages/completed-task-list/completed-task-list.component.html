@@ -3,6 +3,7 @@
   @if (completeTasks.length > 0) {
     @for (task of completeTasks; track $index) {
       <app-task-card
+        data-cy="complete-task-card"
         [listId]="task.list"
         [ableToMoveDaily]="false"
         [task]="task"
